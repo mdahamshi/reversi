@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MainForm.qml</file>
+        <file>Res/1.png</file>
+        <file>MyButton.qml</file>
+        <file>Block.qml</file>
+        <file>Res/active.png</file>
+        <file>Res/black.png</file>
+        <file>Res/blank.png</file>
+        <file>Res/white.png</file>
+        <file>game.js</file>
+        <file>Res/blank2.png</file>
+        <file>Help.qml</file>
+        <file>singleton/Style.qml</file>
+        <file>singleton/qmldir</file>
+        <file>About.qml</file>
+        <file>Res/me.jpg</file>
+        <file>Res/ns.jpg</file>
+    </qresource>
+</RCC>
