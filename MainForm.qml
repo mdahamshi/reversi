@@ -3,11 +3,11 @@ import "game.js" as MyScript
 
 Rectangle {
     id: background
-    property alias mouseArea: mouseArea
-    property alias textEdit: textEdit
 
-    width: 360
-    height: 360
+    property alias textEdit: textEdit
+    anchors.fill: parent
+    width: parent.width
+    height: parent.height
     property alias start: start
     property alias help: help
     property alias image: image
@@ -19,18 +19,35 @@ Rectangle {
 
                width: parent.width
                height: parent.height
-               anchors.centerIn: parent
-
-               MouseArea {
-                   id: mouseArea
+               anchors.fill: parent
+               Grid{
+                   rows: MyScript.maxColumn; columns: MyScript.maxRow
+                   id: gameBlocks
                    anchors.fill: parent
-//                   onClicked: SameGame.handleClick(mouse.x, mouse.y)
-                       onClicked:  console.log(qsTr('Clicked on canvas.  ' + mouse.x+"  "+mouse.y + " "+
-                                                    MyScript.board[MyScript.index(Math.floor(mouse.y / MyScript.blockSize),Math.floor(mouse.x / MyScript.blockSize))].type))
+                   visible: false
+                   width: parent.width
+                   height: parent.height
+
+                   Repeater{
+                       model:myBroker.getBoardSize()
+                       delegate: Block{
+
+                       }
+
+                   }
+
+
                }
+
+
+
+
            }
 
-
+        Connections{
+            target: myBroker
+            onUpdateBoard: MyScript.updateBoard()
+        }
 
         Image {
             id: image
@@ -54,11 +71,14 @@ Rectangle {
             width: 100
             height: 80
             onButtonClicked:{
-                MyScript.startNewGame()
+                gameBlocks.visible = true
                 whiteScore.visible = true
                 blackScore.visible = true
                 blackCount.visible = true
                 whiteCount.visible = true
+                background.image.visible = false;
+                background.start.visible = false;
+                background.textEdit.visible = false;
             }
             toolTipText: "Click to start the fun !"
         }
@@ -178,4 +198,5 @@ Rectangle {
             border.width: 3
         }
     }
+    Component.onCompleted: MyScript.updateBoard()
 }

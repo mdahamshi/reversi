@@ -4,9 +4,11 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    board.cpp \
-    player.cpp \
-    game.cpp
+    broker.cpp \
+    boards.cpp \
+    advertree.cpp \
+    constants.cpp \
+    liveboard.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,6 +40,8 @@ DISTFILES += \
 FORMS +=
 
 HEADERS += \
-    board.h \
-    player.h \
-    game.h
+    broker.h \
+    boards.h \
+    advertree.h \
+    constants.h \
+    liveboard.h

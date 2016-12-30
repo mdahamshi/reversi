@@ -32,26 +32,28 @@ function startNewGame() {
     maxIndex = maxRow * maxColumn;
 
     //Initialize Board
-    board = new Array(maxIndex);
+
     for (var column = 0; column < maxColumn; column++) {
         for (var row = 0; row < maxRow; row++) {
             board[index(column, row)] = null;
             createBlock(column, row);
         }
     }
+    updateBoard();
 
     //initialize center blocks
-    board[index(maxColumn / 2 -1,maxRow / 2 -1)].changeColor(colorEnum.WHITE);
 
-    board[index(maxColumn / 2 ,maxRow / 2 )].changeColor(colorEnum.WHITE);
-
-    board[index(maxColumn / 2 ,maxRow / 2 -1)].changeColor(colorEnum.BLACK);
-
-    board[index(maxColumn / 2 -1,maxRow / 2 )].changeColor(colorEnum.BLACK);
 
 
 }
-function changeBlock(column ,row){
+function updateBoard() {
+
+    for (var column = 0; column < maxColumn; column++) {
+        for (var row = 0; row < maxRow; row++) {
+            (gameBlocks.children[index(column, row)]).changeColor(row,column);
+
+        }
+    }
 
 }
 

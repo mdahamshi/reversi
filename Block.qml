@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import "game.js" as MyScript
 import "singleton"
+
 Item {
     id: block
     width: 50
@@ -15,8 +16,11 @@ Item {
         source: "Res/blank2.png"
 
     }
-    function changeColor(color){
-        if (color == MyStyle.whiteColor){
+
+
+    function changeColor(i,j){
+    var color = myBroker.getColor(i,j);
+        if (color  == MyStyle.whiteColor){
             blockArea.old = MyStyle.whiteDir
             blockImage.source = MyStyle.whiteDir
             type = MyStyle.whiteColor
@@ -26,11 +30,17 @@ Item {
             blockImage.source = MyStyle.blackDir
             type = MyStyle.blackColor
         }
+        else if(color == MyStyle.possibleColor){
+            blockArea.old = MyStyle.possibleDir
+            blockImage.source = MyStyle.possibleDir
+            type = MyStyle.possibleColor
+        }
         else{
             blockArea.old = MyStyle.blankDir
             blockImage.source = MyStyle.blankDir
             type = MyStyle.blankColor
         }
+          blockImage.sourceChanged(blockImage.source);
 
 
     }
@@ -50,23 +60,19 @@ Item {
 
         }
         onExited: {
+
             if(type == MyStyle.blankColor){
                 blockImage.source= old
                 blockImage.sourceChanged(blockImage.source)
-                console.log(qsTr('hovered exit'+type+old))
             }
 
        }
+        signal blockClickedAt(int i ,int j)
         onClicked: {
-       {
-                if(block.type == MyStyle.blankColor){
+            console.log(Math.floor(block.x / (block.height)));
 
-                    block.changeColor( MyStyle.whiteColor)
-                    blockImage.sourceChanged(blockImage.source)
-                    console.log(qsTr('blockChanged'+type))
-                }
-                console.log(qsTr(""+type))
-            }
+            myBroker.setColor(Math.floor(block.y / (block.height)),Math.floor(block.x / (block.width)),myConst.BLACK);
+            MyScript.updateBoard();
         }
     }
 }
