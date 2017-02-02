@@ -1,5 +1,6 @@
 import QtQuick 2.5
 import "game.js" as MyScript
+import "singleton"
 
 Rectangle {
     id: background
@@ -17,6 +18,7 @@ Rectangle {
                property int score: 0
                property int blockSize: 40
 
+
                width: parent.width
                height: parent.height
                anchors.fill: parent
@@ -27,6 +29,7 @@ Rectangle {
                    visible: false
                    width: parent.width
                    height: parent.height
+                   enabled: false
 
                    Repeater{
                        model:myBroker.getBoardSize()
@@ -46,7 +49,30 @@ Rectangle {
 
         Connections{
             target: myBroker
-            onUpdateBoard: MyScript.updateBoard()
+            onUpdateBoard: {
+                MyScript.updateBoard();
+                MyScript.unlockBoard();
+                if(myBroker.getTurn() === MyStyle.whiteColor)
+                    status.text = "White Turn";
+                else
+                    status.text = "Black Turn";
+            }
+            onYourTurn:{
+                status.text = "Your turn !";
+            }
+            onGameRestart:{
+                MyScript.updateBoard();
+            }
+
+            onGameEnd:{
+                if (whiteCount.score > blackCount.score)
+                    status.text = "White is the king !"
+                if (whiteCount.score == blackCount.score)
+                    status.text = "Both are kings !"
+                if (whiteCount.score < blackCount.score)
+                    status.text = "Black is king"
+                MyScript.lockBoard();
+            }
         }
 
         Image {
@@ -71,17 +97,12 @@ Rectangle {
             width: 100
             height: 80
             onButtonClicked:{
-                gameBlocks.visible = true
-                whiteScore.visible = true
-                blackScore.visible = true
-                blackCount.visible = true
-                whiteCount.visible = true
-                background.image.visible = false;
-                background.start.visible = false;
-                background.textEdit.visible = false;
+                gameSet.visible = true;
+
             }
             toolTipText: "Click to start the fun !"
         }
+
         Rectangle{
            id: whiteScore
            anchors.bottom: parent.bottom
@@ -147,9 +168,19 @@ Rectangle {
             toolTipText: "Click to show you instructions"
 
         }
+       Text {
+           id: status
+           text: qsTr("Hello")
+           font.pointSize: 20
+           visible: false
+           anchors.bottom: help.top
+           anchors.bottomMargin: 10
+           anchors.horizontalCenter: help.horizontalCenter
+       }
 
        MyButton{
            id: quit
+
            anchors.bottom: parent.bottom
            anchors.right: parent.right
            anchors.margins: 5
@@ -157,8 +188,12 @@ Rectangle {
            color: "red"
            customText: "X"
            fontSize: 20
-           onButtonClicked: Qt.quit()
-           toolTipText: "Click to quit"
+           onButtonClicked: {
+
+               exitDialog.visible = true
+           }
+
+           toolTipText: "Click to quit or restart the game"
         }
        MyButton{
            id: about
@@ -180,6 +215,14 @@ Rectangle {
         Help{
             id:myHelp
         }
+        GameSetting{
+            id:gameSet
+        }
+        ExitDialog{
+            id:exitDialog
+        }
+
+
 
 
     TextEdit {
@@ -198,5 +241,8 @@ Rectangle {
             border.width: 3
         }
     }
-    Component.onCompleted: MyScript.updateBoard()
+    Component.onCompleted: {
+        MyScript.unlockBoard();
+        MyScript.updateBoard();
+    }
 }

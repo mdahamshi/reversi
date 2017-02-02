@@ -20,27 +20,31 @@ Item {
 
     function changeColor(i,j){
     var color = myBroker.getColor(i,j);
-        if (color  == MyStyle.whiteColor){
-            blockArea.old = MyStyle.whiteDir
-            blockImage.source = MyStyle.whiteDir
-            type = MyStyle.whiteColor
+        if (color != type){
+            if (color  == MyStyle.whiteColor){
+                blockArea.old = MyStyle.whiteDir
+                blockImage.source = MyStyle.whiteDir
+                type = MyStyle.whiteColor
+            }
+            else if (color == MyStyle.blackColor){
+                blockArea.old = MyStyle.blackDir
+                blockImage.source = MyStyle.blackDir
+                type = MyStyle.blackColor
+            }
+            else if(color == MyStyle.possibleColor){
+                blockArea.old = MyStyle.possibleDir
+                blockImage.source = MyStyle.possibleDir
+                type = MyStyle.possibleColor
+            }
+            else{
+                blockArea.old = MyStyle.blankDir
+                blockImage.source = MyStyle.blankDir
+                type = MyStyle.blankColor
+            }
+              blockImage.sourceChanged(blockImage.source);
         }
-        else if (color == MyStyle.blackColor){
-            blockArea.old = MyStyle.blackDir
-            blockImage.source = MyStyle.blackDir
-            type = MyStyle.blackColor
-        }
-        else if(color == MyStyle.possibleColor){
-            blockArea.old = MyStyle.possibleDir
-            blockImage.source = MyStyle.possibleDir
-            type = MyStyle.possibleColor
-        }
-        else{
-            blockArea.old = MyStyle.blankDir
-            blockImage.source = MyStyle.blankDir
-            type = MyStyle.blankColor
-        }
-          blockImage.sourceChanged(blockImage.source);
+
+
 
 
     }
@@ -52,7 +56,8 @@ Item {
         hoverEnabled: true
         property string old: blockImage.source+""
         onEntered: {
-            if(type == MyStyle.blankColor){
+            if(gameBlocks.enabled == true)
+            if(type == MyStyle.blankColor || type == MyStyle.possibleColor ){
                 old = blockImage.source+""
                 blockImage.source= MyStyle.activeDir
                 blockImage.sourceChanged(blockImage.source)
@@ -60,8 +65,8 @@ Item {
 
         }
         onExited: {
-
-            if(type == MyStyle.blankColor){
+            if(gameBlocks.enabled == true)
+            if(type == MyStyle.blankColor || type == MyStyle.possibleColor ){
                 blockImage.source= old
                 blockImage.sourceChanged(blockImage.source)
             }
@@ -69,10 +74,16 @@ Item {
        }
         signal blockClickedAt(int i ,int j)
         onClicked: {
+            status.text = "";
             console.log(Math.floor(block.x / (block.height)));
+            if(block.type != MyStyle.possibleColor)
+                status.text = "Wrong Choice !";
+            else{
+                MyScript.lockBoard();
 
-            myBroker.setColor(Math.floor(block.y / (block.height)),Math.floor(block.x / (block.width)),myConst.BLACK);
-            MyScript.updateBoard();
+                myBroker.gotInput(Math.floor(block.y / (block.height)),Math.floor(block.x / (block.width)));
+            }
+
         }
     }
 }

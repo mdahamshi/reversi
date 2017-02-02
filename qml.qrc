@@ -17,5 +17,8 @@
         <file>About.qml</file>
         <file>Res/me.jpg</file>
         <file>Res/ns.jpg</file>
+        <file>GameSetting.qml</file>
+        <file>ExitDialog.qml</file>
+        <file>Res/pos.png</file>
     </qresource>
 </RCC>

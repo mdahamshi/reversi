@@ -54,6 +54,9 @@ function updateBoard() {
 
         }
     }
+    blackCount.score = myBroker.getBlackCount();
+    whiteCount.score = myBroker.getWhiteCount();
+
 
 }
 
@@ -84,3 +87,9 @@ function createBlock(column, row) {
     }
     return true;
 }
+    function lockBoard(){
+    gameBlocks.enabled = false;
+    }
+    function unlockBoard(){
+    gameBlocks.enabled = true;;
+    }

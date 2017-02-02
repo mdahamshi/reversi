@@ -34,6 +34,22 @@ public:
         BLACK,
         POSSIBLE
     };
+    enum gameType{
+        PLAYER_VS_PLAYER,
+        PLAYER_VS_PC,
+        PC_VS_PC
+    };
+    enum algorithm{
+        NONE,
+        MINIMAX,
+        ALPHA_BETA,
+        BOTH
+    };
+    enum playerType{
+        HUMAN,
+        PC
+    };
+
     static  Constants *  m_Instance;
     static Constants *getInstance(){
         if (! m_Instance)

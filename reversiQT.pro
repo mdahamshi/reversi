@@ -5,10 +5,11 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     broker.cpp \
-    boards.cpp \
     advertree.cpp \
     constants.cpp \
-    liveboard.cpp
+    liveboard.cpp \
+    game.cpp \
+    player.cpp
 
 RESOURCES += qml.qrc
 
@@ -41,7 +42,8 @@ FORMS +=
 
 HEADERS += \
     broker.h \
-    boards.h \
     advertree.h \
     constants.h \
-    liveboard.h
+    liveboard.h \
+    game.h \
+    player.h

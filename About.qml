@@ -86,7 +86,7 @@ Dialog{
             text:
             "Mohammad Dahamshi - mmd.0@hotmail.com\n"
             +"Naseem Hanna - naseem.hanna1@gmail.com \n"
-            +"As homework by: Dr. Larry Manevitz\n "
+            +"As homework by: Professor Larry Manevitz\n "
             +"All rights reserved®\n"
 
 

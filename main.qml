@@ -7,7 +7,7 @@ import reversi 1.0
 Window {
     visible: true
     width: MyScript.maxColumn * MyScript.blockSize
-    height: MyScript.maxRow * MyScript.blockSize + 50
+    height: MyScript.maxRow * MyScript.blockSize + 100
     maximumHeight: height
     maximumWidth: width
     minimumHeight: height
