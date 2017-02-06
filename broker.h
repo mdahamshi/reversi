@@ -62,6 +62,7 @@ signals:
     void gameEnd();
     void pcThinking();
     void yourTurn();
+    void noPossible();
     void pcPass();
     void gameStart();
     void gameRestart();

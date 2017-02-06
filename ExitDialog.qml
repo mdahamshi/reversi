@@ -87,7 +87,8 @@ Dialog{
                 anchors.rightMargin: 20
                 toolTipText: "Click to exit the game"
                 onButtonClicked: {
-                     Qt.quit()
+                      Qt.quit();
+
                 }
             }
 

@@ -52,11 +52,22 @@ Rectangle {
             onUpdateBoard: {
                 MyScript.updateBoard();
                 MyScript.unlockBoard();
+                status.color = "black";
                 if(myBroker.getTurn() === MyStyle.whiteColor)
                     status.text = "White Turn";
                 else
                     status.text = "Black Turn";
             }
+            onNoPossible:{
+
+                 MyScript.updateBoard();
+                MyScript.unlockBoard();
+                 status.text = "no possible moves ! passing..";
+                status.color = "red";
+
+
+            }
+
             onYourTurn:{
                 status.text = "Your turn !";
             }
@@ -65,12 +76,13 @@ Rectangle {
             }
 
             onGameEnd:{
+                status.color = "blue";
                 if (whiteCount.score > blackCount.score)
                     status.text = "White is the king !"
                 if (whiteCount.score == blackCount.score)
                     status.text = "Both are kings !"
                 if (whiteCount.score < blackCount.score)
-                    status.text = "Black is king"
+                    status.text = "Black is the king"
                 MyScript.lockBoard();
             }
         }
@@ -172,6 +184,7 @@ Rectangle {
            id: status
            text: qsTr("Hello")
            font.pointSize: 20
+           color: "black"
            visible: false
            anchors.bottom: help.top
            anchors.bottomMargin: 10

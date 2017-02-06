@@ -6,13 +6,13 @@ import reversi 1.0
 
 Window {
     visible: true
-    width: MyScript.maxColumn * MyScript.blockSize
-    height: MyScript.maxRow * MyScript.blockSize + 100
+    width: 600
+    height: 600 + 100
     maximumHeight: height
     maximumWidth: width
     minimumHeight: height
     minimumWidth: width
-    title: qsTr("Reversi , Dr. Larry Manevitz  Edition")
+    title: qsTr("Reversi , Professor Larry Manevitz  Edition")
 
     MainForm {
         anchors.fill: parent

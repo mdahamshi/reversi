@@ -13,6 +13,26 @@
 #define COLS 12
 using namespace std;
 
+typedef struct move {
+     int i, j;
+      move () {
+     }
+      move (int a, int b) {
+         i = a;
+         j = b;
+     }
+ }Move;
+typedef struct best {
+     Move bestMove;
+     int score;
+      best () {
+     }
+      best (Move m ,int s) {
+         bestMove.i = m.i;
+         bestMove.j = m.j;
+         score = s;
+     }
+ }Best;
 
 
 class Constants : public QObject

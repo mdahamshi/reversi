@@ -10,9 +10,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     Broker::declareQML();
     Constants::QmlDec();
-     QThread workerThread;
-    Broker::getInstance()->moveToThread(&workerThread);
-    workerThread.start();
+//     QThread workerThread;
+//    Broker::getInstance()->moveToThread(&workerThread);
+//    workerThread.start();
 
     engine.rootContext()->setContextProperty("myBroker",Broker::getInstance());
     engine.rootContext()->setContextProperty("myConst",Constants::getInstance());

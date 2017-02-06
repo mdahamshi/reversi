@@ -35,19 +35,8 @@ void Broker::setColor(int i, int j ,int c)
 {
     gameBoard.updateColor(i,j,c);
 }
-void Broker::gotInput(int i, int j )
-{
-    std::cout<<"now im in got input"<<endl;
-    currentGame->checkBoard(new Move(i,j),currentGame->getTurn());
 
-    flipTurn();
-    currentGame->updatePossible();
-    printBoard();
-    emit updateBoard();     //at end of pc thinking
-    if(someoneWon())
-        emit gameEnd();
 
-}
 bool Broker::someoneWon()
 {
     return currentGame->someoneWon();
@@ -69,36 +58,51 @@ void Broker::onGameStart()
         flipTurn();
     }
 }
+void Broker::gotInput(int i, int j )
+{
+    std::cout<<"now im in got input"<<endl;
+    currentGame->gameBoard->checkBoard(Move(i,j),currentGame->getTurn());
+    emit updateBoard();     //at end of pc thinking
+    flipTurn();
 
+}
 void Broker::flipTurn()
 {
-    if(someoneWon()){
-        emit gameEnd();
-        return;
-    }
-    emit updateBoard();
-    if (currentGame->getTurn() == Constants::BLACK){
+    if (currentGame->getTurn() == Constants::BLACK)
         currentGame->setTurn(Constants::WHITE);
-        if (currentGame->getWhitePlayer().getType() == Constants::PC){
-            currentGame->pcMove(Constants::WHITE);
-            flipTurn();
-        }
-        else
-            currentGame->updatePossible();
-
-
-    }
-    else{
+    else
         currentGame->setTurn(Constants::BLACK);
-        if (currentGame->getBlackPlayer().getType() == Constants::PC){
-            currentGame->pcMove(Constants::BLACK);
-            flipTurn();
-        }
-        else
-            currentGame->updatePossible();
+
+    if(someoneWon()){
+        QCoreApplication::processEvents();
+        emit updateBoard();
+        emit gameEnd();
+        QCoreApplication::processEvents();
         return;
     }
+    cout<<"**************************************"<<endl;
+    printBoard();
     emit updateBoard();
+    QCoreApplication::processEvents();
+
+    if(currentGame->getGameBoard()->noPossibleMove()){
+        cout<<"no possible move !"<<endl;
+        emit noPossible();
+        sleep(1);
+        QCoreApplication::processEvents();
+        sleep(2);
+        flipTurn();
+        return;
+    }
+
+    if (currentGame->getTurnType() == Constants::PC){
+        currentGame->pcMove(currentGame->getTurn());
+        QCoreApplication::processEvents();
+        flipTurn();
+        return;
+    }
+   emit updateBoard();
+
 
 }
 void Broker::endCurrentGame()

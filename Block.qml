@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 import "game.js" as MyScript
 import "singleton"
 
@@ -55,12 +56,21 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         property string old: blockImage.source+""
+        property string cord: Math.floor(block.y / (block.height))+""+", "+Math.floor(block.x / (block.width))+""
+
+        ToolTip{
+            id:toolTip
+
+            text:blockArea.cord
+        }
+
         onEntered: {
             if(gameBlocks.enabled == true)
             if(type == MyStyle.blankColor || type == MyStyle.possibleColor ){
                 old = blockImage.source+""
                 blockImage.source= MyStyle.activeDir
                 blockImage.sourceChanged(blockImage.source)
+                toolTip.visible = true
             }
 
         }
@@ -69,6 +79,7 @@ Item {
             if(type == MyStyle.blankColor || type == MyStyle.possibleColor ){
                 blockImage.source= old
                 blockImage.sourceChanged(blockImage.source)
+                toolTip.visible = false
             }
 
        }
@@ -76,8 +87,10 @@ Item {
         onClicked: {
             status.text = "";
             console.log(Math.floor(block.x / (block.height)));
-            if(block.type != MyStyle.possibleColor)
+            if(block.type != MyStyle.possibleColor){
                 status.text = "Wrong Choice !";
+                status.color = "red";
+            }
             else{
                 MyScript.lockBoard();
 

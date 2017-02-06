@@ -1,5 +1,20 @@
 #include "liveboard.h"
 
+std::bitset<BOARD_SIZE> LiveBoard::getPossibleBoard() const
+{
+    return possibleBoard;
+}
+
+std::bitset<BOARD_SIZE> LiveBoard::getBlackBoard() const
+{
+    return blackBoard;
+}
+
+std::bitset<BOARD_SIZE> LiveBoard::getWhiteBoard() const
+{
+    return whiteBoard;
+}
+
 LiveBoard::LiveBoard()
 {
 
@@ -19,6 +34,17 @@ int LiveBoard::getColor(int r, int c)
     if(blackBoard[toOneDim(r,c)])
         return Constants::BLACK;
     if(possibleBoard[toOneDim(r,c)])
+        return Constants::POSSIBLE;
+    return Constants::BLANK;
+}
+int LiveBoard::getColor(int r)
+{
+
+    if(whiteBoard[r])
+        return Constants::WHITE;
+    if(blackBoard[r])
+        return Constants::BLACK;
+    if(possibleBoard[r])
         return Constants::POSSIBLE;
     return Constants::BLANK;
 }
@@ -49,6 +75,88 @@ void LiveBoard::updateColor(int i, int j, int aColor)
     else
         flipColor(i,j);
 }
+int LiveBoard::Check(Move move, int incx, int incy, int kind , bool toSet)  {
+        int opponent;
+        int x=move.i;
+        int y=move.j;
+        if (kind == Constants::BLACK) opponent=Constants::WHITE; else opponent=Constants::BLACK;
+        int n_inc=0;
+        x+=incx; y+=incy;
+        while ((x<SIZE) && (x>=0) && (y<SIZE) && (y>=0) && (getColor(x,y)==opponent)) {
+            x+=incx; y+=incy;
+            n_inc++;
+        }
+        if ((n_inc != 0) && (x<SIZE) && (x>=0) && (y<SIZE) && (y>=0) && (getColor(x,y)==kind)) {
+             if (toSet)
+             for (int j = 1 ; j <= n_inc ; j++) {
+                x-=incx; y-=incy;
+                 set(Move(x,y),kind);
+             }
+            return n_inc;
+        }
+        else return 0;
+    }
+bool LiveBoard::isValid(Move move, int kind) {
+        // check increasing x
+        if (Check(move,1,0,kind,false) != 0) return true;
+        // check decreasing x
+        if (Check(move,-1,0,kind,false) != 0) return true;
+        // check increasing y
+        if (Check(move,0,1,kind,false) != 0) return true;
+        // check decreasing y
+        if (Check(move,0,-1,kind,false) != 0) return true;
+        // check diagonals
+        if (Check(move,1,1,kind,false) != 0) return true;
+        if (Check(move,-1,1,kind,false) != 0) return true;
+        if (Check(move,1,-1,kind,false) != 0) return true;
+        if (Check(move,-1,-1,kind,false) != 0) return true;
+        return false;
+    }
+void LiveBoard::updatePossible(int turnColor)
+{
+
+    resetPossible();
+
+    for (int i =0; i < SIZE ;i++)
+        for (int j=0; j < SIZE ;j++)
+            if(isEmpty(i,j) && isValid(Move(i,j),turnColor)){
+                setPossible(i,j);
+                possibleList.push_back(Move(i,j));
+            }
+
+}
+LiveBoard& LiveBoard::operator =(LiveBoard& source)
+{
+    this->blackBoard = source.getBlackBoard();
+    this->whiteBoard = source.getWhiteBoard();
+    this->possibleBoard = source.getPossibleBoard();
+    this->possibleList = source.possibleList;
+}
+
+int LiveBoard::checkBoard(Move move, int kind)
+{
+        // check increasing x
+
+        int j=Check(move,1,0,kind,true);
+        // check decreasing x
+        j+=Check(move,-1,0,kind,true);
+        // check increasing y
+        j+=Check(move,0,1,kind,true);
+        // check decreasing y
+        j+=Check(move,0,-1,kind,true);
+        // check diagonals
+        j+=Check(move,1,1,kind,true);
+        j+=Check(move,-1,1,kind,true);
+        j+=Check(move,1,-1,kind,true);
+        j+=Check(move,-1,-1,kind,true);
+        if (j != 0) set(move,kind);
+//        updatePossible(kind);
+        return j;
+}
+void LiveBoard::set(Move move,int kind)
+{
+    updateColor(move.i,move.j,kind);
+}
 void LiveBoard::flipColor(int i, int j)
 {
     whiteBoard.flip(toOneDim(i,j));
@@ -75,17 +183,17 @@ void LiveBoard::printBoard()
     cout<<"   ";
     for (int c = 0; c < COLS; c++)
         if(c < 9)
-            cout<< c+1 <<"  ";
+            cout<< c <<"  ";
         else
-            cout << c+1 << " ";
+            cout << c << " ";
     cout<<endl;
 
     for (int r = 0; r < ROWS; r++)
     {
-        if(r < 9)
-            cout<< r+1 << setw(3);
+        if(r < 10)
+            cout<< r << setw(3);
         else
-            cout << r+1 << setw(2);
+            cout << r << setw(2);
         for (int c = 0; c < COLS; c++)
         {
             if(notEmpty(r,c))
@@ -106,4 +214,5 @@ void LiveBoard::printBoard()
         }
         cout<< endl;
     }
+//    cout<<endl;
 }

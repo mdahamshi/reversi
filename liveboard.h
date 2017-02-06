@@ -28,10 +28,12 @@ private:
     std::bitset<BOARD_SIZE> blackBoard;
     std::bitset<BOARD_SIZE> whiteBoard;
 
+
 public:
     LiveBoard();
 //    int getV(int r, int c){return arrr[r][c];}
     bool isPossible(int,int);
+    std::list<Move> possibleList;
 
 
 
@@ -42,17 +44,28 @@ public:
       void initializeBoard();
       bool notEmpty(int i ,int j);
       bool isEmpty(int i , int j);
+      int poosibleCount(){return possibleBoard.count();}
       int whiteCount(){return whiteBoard.count();}
       int blackCount(){return blackBoard.count();}
       void setPossible(int,int);
-      void resetPossible(){possibleBoard.reset();}
+      void resetPossible(){possibleBoard.reset();possibleList.clear();}
       void printBoard();
-      bool noPossibleMove(){return ! possibleBoard.count();}
+      bool noPossibleMove(){return  possibleBoard.none();}
       void Display_Board();
-      virtual int getColor(int r, int c);
+      void updatePossible(int);
+      LiveBoard& operator=(LiveBoard& source);
+      int checkBoard(Move move, int kind);
+      void set(Move move,int kind);
+      bool isValid(Move move, int kind);
+      int Check(Move move, int incx, int incy, int kind , bool toSet)  ;
+      int getColor(int r, int c);
+      int getColor(int r);
       void Initialize_Heuristics();
       void Display_Heuristics();
 
+      std::bitset<BOARD_SIZE> getPossibleBoard() const;
+      std::bitset<BOARD_SIZE> getBlackBoard() const;
+      std::bitset<BOARD_SIZE> getWhiteBoard() const;
 };
 
 
