@@ -6,6 +6,10 @@ The board is represnted by a BitSet Data structre (http://www.cplusplus.com/refe
 <br/>
 We used <b>Qt creator</b> to build the GUI, with <b>Qt Quick 2 (qml)</b>
 <br/>
+We used a <b>static</b> heuristic board for the <b>AI</b> part.
+<br/>
+Most of the game logic and the AI functions are in the <a href=https://github.com/mdahamshi/reversi/blob/master/game.h>game.h</a> file.
+<br/>
 The board is <b>12x12</b> in size, <b>BUT</b> you can edit the size easily by changing a couple of #define lines.
 <br/>
 You can contact me if you got stucked or need any help.
