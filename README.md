@@ -12,6 +12,8 @@ Most of the game logic and the AI functions are in the <a href=https://github.co
 <br/>
 The board is <b>12x12</b> in size, <b>BUT</b> you can edit the size easily by changing a couple of #define lines.
 <br/>
+You can download the game and test it on Windows, a portable version is available <a href=https://github.com/mdahamshi/reversi/blob/master/reversiQTFinal.zip>Here</a> inside the "release" folder.
+<br/>
 You can contact me if you got stucked or need any help.
 <br/>
 Thank you and good luck.
