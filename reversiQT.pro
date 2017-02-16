@@ -3,10 +3,9 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-
+CONFIG += static
 SOURCES += main.cpp \
     broker.cpp \
-    advertree.cpp \
     constants.cpp \
     liveboard.cpp \
     game.cpp \
@@ -43,7 +42,6 @@ FORMS +=
 
 HEADERS += \
     broker.h \
-    advertree.h \
     constants.h \
     liveboard.h \
     game.h \

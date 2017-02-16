@@ -1,0 +1,14 @@
+INPUT(
+./debug/main.o
+./debug/broker.o
+./debug/advertree.o
+./debug/constants.o
+./debug/liveboard.o
+./debug/game.o
+./debug/player.o
+./debug/reversiqt_qml_plugin_import.o
+./debug/reversiqt_plugin_import.o
+./debug/qrc_qml.o
+./debug/moc_broker.o
+./debug/moc_constants.o
+);
