@@ -17,6 +17,7 @@ Thank you and good luck.
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/2.png)
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/3.png)
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/4.png)
+![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/7.png)
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/5.png)
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/6.png)
 <br/>
