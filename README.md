@@ -2,7 +2,7 @@
 <h1>AI homework Reversi 12x12</h1>
 <br/>
 The game is written in C++ <br/>
-The board is represnted by a BitSet Data structre (http://www.cplusplus.com/reference/bitset/bitset/)
+The board is represented by a BitSet Data structre (http://www.cplusplus.com/reference/bitset/bitset/)
 <br/>
 We used <b>Qt creator</b> to build the GUI, with <b>Qt Quick 2 (qml)</b>
 <br/>
