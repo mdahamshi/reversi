@@ -17,8 +17,8 @@ You can download the game and test it on Windows, a portable version is availabl
 You can contact me if you got stucked or need any help at:<a href="mailto:mmd.0@hotmail.com?Subject=AI%20Project" target="_top"> mmd.0@hotmail.com</a> .
 <br/>
 Thank you and good luck.
-<br/><h3>Screenshots:</h3>
-<br/>
+<br/><h3>Screenshots:</h3><br/>
+
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/1.png)
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/2.png)
 ![alt tag](https://github.com/mdahamshi/reversi/blob/master/screenshots/3.png)
