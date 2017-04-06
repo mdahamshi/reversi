@@ -1,7 +1,6 @@
 INPUT(
 ./release/main.o
 ./release/broker.o
-./release/advertree.o
 ./release/constants.o
 ./release/liveboard.o
 ./release/game.o

@@ -20,5 +20,6 @@
         <file>GameSetting.qml</file>
         <file>ExitDialog.qml</file>
         <file>Res/pos.png</file>
+        <file>../../StripsQT/singleton/GlobalsQML.qml</file>
     </qresource>
 </RCC>

@@ -1,7 +1,6 @@
 INPUT(
 ./debug/main.o
 ./debug/broker.o
-./debug/advertree.o
 ./debug/constants.o
 ./debug/liveboard.o
 ./debug/game.o

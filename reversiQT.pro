@@ -3,7 +3,7 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-CONFIG += static
+
 SOURCES += main.cpp \
     broker.cpp \
     constants.cpp \
